@@ -1,4 +1,4 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { CartItem } from '../../models/cart.model';
 import { CurrencyPipe } from '@angular/common';
@@ -11,12 +11,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./cart.scss']
 })
 export class Cart {
-  items: CartItem[] = [];
-  total = 0;
+  items = signal<CartItem[]>([]);
+  total = computed(() =>
+    this.items().reduce((sum, i) => sum + i.product.price * i.quantity, 0)
+  );
 
   constructor(private cartService: CartService, private router: Router) {
-    this.items = this.cartService.cartItemsSig();
-    this.total = this.items.reduce((sum, i) => sum + i.product.price * i.quantity, 0);
+    this.items = this.cartService.cartItemsSig;
   }
 
   increase(item: CartItem) {
@@ -24,12 +25,7 @@ export class Cart {
   }
 
   decrease(item: CartItem) {
-    if (item.quantity > 1) {
-      item.quantity--;
-      this.cartService.cartItemsSig.update(items => [...items]);
-    } else {
-      this.remove(item.product.id);
-    }
+    this.cartService.updateQuantity(item.product.id, item.quantity - 1);
   }
 
   remove(productId: string) {

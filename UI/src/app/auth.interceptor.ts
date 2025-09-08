@@ -19,7 +19,6 @@ export const authInterceptor : HttpInterceptorFn = (request, next) => {
 
   let req = request;
   if (token && !isAuthLogin && !isAuthRegister && !isAuthRefresh) {
-    console.log("Making request!!!!")
     req = request.clone({ setHeaders: { Authorization: `Bearer ${token}` }, withCredentials: true, });
   } 
 

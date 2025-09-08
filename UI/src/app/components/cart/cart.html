@@ -1,11 +1,11 @@
 <div class="cart">
   <h2>Shopping Cart</h2>
-  @if (items.length === 0) {
+  @if (items().length === 0) {
     <div>Your cart is empty</div>
   }
   @else {
     <ul class="cart-list">
-        @for (item of items; track $index) {
+        @for (item of items(); track $index) {
             <li class="cart-item">
                 <div class="info">
                     <span class="name">{{ item.product.name }}</span>
@@ -25,7 +25,7 @@
     </ul>
 
     <div class="summary">
-        <p>Total: <strong>{{ total | currency:'USD' }}</strong></p>
+        <p>Total: <strong>{{ total() | currency:'USD' }}</strong></p>
         <button class="checkout" (click)="checkout()">Checkout</button>
     </div>
   }

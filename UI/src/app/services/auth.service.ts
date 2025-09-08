@@ -12,7 +12,6 @@ export class AuthService {
     constructor(private http: HttpClient) {}
 
     getUser() {
-        console.log(`Token in local storage: ${localStorage.getItem(this.key)}`)
         return this.http.get<User>(this.baseUrl);
     }
 
@@ -31,7 +30,6 @@ export class AuthService {
     }
 
     markUserAsLoyal(id: string) {
-        console.log(`Id: ${id}`);
         return this.http.put(`${this.baseUrl}/mark/${id}`, {}).subscribe();
     }
 
@@ -63,7 +61,6 @@ export class AuthService {
     refreshTokens(): Observable<string> {
         return this.http.post<string>(`${this.baseUrl}/refresh`, {}, { withCredentials: true }).pipe(
             tap(token => {
-                console.log(`Token refreshed. Token: ${token}`);
                 localStorage.setItem(this.key, token);
             })
         );

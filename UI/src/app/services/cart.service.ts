@@ -46,4 +46,20 @@ export class CartService {
   getTotalPrice() {
     return this.cartItemsSig().reduce((sum, i) => sum + i.product.price * i.quantity, 0);
   }
+
+  updateQuantity(productId: string, quantity: number) {
+    const items = [...this.cartItemsSig()];
+    const existing = items.find(i => i.product.id === productId);
+
+    if (existing) {
+      if (quantity > 0) {
+        existing.quantity = quantity;
+      } else {
+        const index = items.indexOf(existing);
+        items.splice(index, 1);
+      }
+      this.cartItemsSig.set(items);
+      this.save();
+    }
+  }
 }
