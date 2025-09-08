@@ -16,9 +16,11 @@ export class AuthService {
         return this.http.get<User>(this.baseUrl);
     }
 
-    register(lastName: string, firstName: string, patronymic: string, email: string, phone: string, address: string, password: string) {
-        return this.http.post<string>(`${this.baseUrl}/register`, { lastName, firstName, patronymic, email, phone, address, password }, { withCredentials: true }).pipe(
-            tap(token => {
+    register(user: User, password: string) {
+        return this.http.post<string>(`${this.baseUrl}/register`, { 
+            ...user, 
+            password 
+            }, { withCredentials: true }).pipe(tap(token => {
                 localStorage.setItem(this.key, token);
             })
         );

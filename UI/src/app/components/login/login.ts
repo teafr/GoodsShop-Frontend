@@ -21,7 +21,6 @@ export class Login {
   onSubmit() {
     if (this.form.valid) {
       const formData = this.form.value;
-      console.log('Form Data:', formData);
       this.authService.login(formData.username, formData.password).subscribe(user => {        
         if (user) {
           this.router.navigateByUrl('/products');

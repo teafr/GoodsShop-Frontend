@@ -19,7 +19,7 @@ export class Register {
       firstName: ['', Validators.required],
       patronymic: [''],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^\+380\d{9}$/)]],
+      phone: ['', [Validators.required, Validators.pattern(/^0\d{9}$/)]],
       address: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmationPassword: ['', Validators.required]
@@ -28,15 +28,13 @@ export class Register {
 
   onSubmit() {
     if (this.form.valid) {
-      const formData = this.form.value;
-      console.log('Form Data:', formData);
-      this.authService.register(formData.lastName, formData.firstName, formData.patronymic || '', formData.email, formData.phone, formData.address, formData.password).subscribe(user => {        
-        if (user) {
-          this.router.navigateByUrl('/products');
-        }
+      const { confirmationPassword, password, ...userData } = this.form.value;
+      this.authService.register(userData, password).subscribe(() => {
+        this.router.navigateByUrl('/products');
       });
     } else {
       console.log('Form is invalid');
     }
   }
+
 }

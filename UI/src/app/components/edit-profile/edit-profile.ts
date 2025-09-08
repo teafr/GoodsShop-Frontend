@@ -41,6 +41,7 @@ export class EditProfile {
       this.authService.updateUser(updatedUser).subscribe({
         next: (res) => {
           this.user = updatedUser;
+          this.back();
         },
         error: (err) => {
           console.error('Update failed:', err);
