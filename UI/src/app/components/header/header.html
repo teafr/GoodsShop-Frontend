@@ -1,0 +1,22 @@
+<header>
+  <div class="navbar">
+    <div class="navbar-brand"> <a href="/">GoodsStore</a> </div>
+    <div class="navbar-search">
+      <input type="text" placeholder="Search products..." [(ngModel)]="searchTerm" (keyup.enter)="onSearch()" />
+    </div>
+
+    <div class="navbar-actions">
+      <div class="profile">
+        <ng-container>
+            @if (authService.isAuthenticated()) {
+              <a (click)="logout()">Logout</a>
+            }
+            @else {
+              <a routerLink="/register">Register</a>
+              <a routerLink="/login">Login</a>
+            }
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</header>

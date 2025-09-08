@@ -1,0 +1,62 @@
+.profile-edit {
+    max-width: 400px;
+    margin: 1rem auto;
+    padding: 1rem;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+    h2 {
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+
+    p {
+        margin: 0.5rem 0;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+
+            button {
+                padding: 0.5rem 1rem;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: background 0.2s;
+
+                &:first-child {
+                    background: var(--primary);
+                    color: white;
+
+                    &:disabled {
+                        background: var(--primary-hover);
+                        cursor: not-allowed;
+                    }
+                }
+
+                &:last-child {
+                    background: var(--primary);
+                    color: white;
+                }
+            }
+        }
+    }
+}

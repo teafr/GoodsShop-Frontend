@@ -1,0 +1,11 @@
+<aside class="nav-menu">
+  <ul>
+    <li><a routerLink="/products" routerLinkActive="active">Products</a></li>
+    <li><a routerLink="/cart" routerLinkActive="active">Cart</a></li>
+    
+    @if (authService.isAuthenticated()) {
+    <li><a routerLink="/checkout" routerLinkActive="active">Checkout</a></li>
+      <li><a routerLink="/profile" routerLinkActive="active">Profile</a></li>
+    }
+  </ul>
+</aside>

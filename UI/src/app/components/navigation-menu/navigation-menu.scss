@@ -1,0 +1,36 @@
+.nav-menu {
+    width: 200px;
+    min-height: 80vh;
+    background: #f8f9fa;
+    padding: 1rem;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.05);
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            margin-bottom: 1rem;
+
+            a {
+                text-decoration: none;
+                color: #34495e;
+                font-weight: 500;
+                display: block;
+                padding: 0.5rem;
+                border-radius: 6px;
+                transition: background 0.2s;
+
+                &:hover {
+                    background: #e9ecef;
+                }
+
+                &.active {
+                    background: var(--primary);
+                    color: #fff;
+                }
+            }
+        }
+    }
+}

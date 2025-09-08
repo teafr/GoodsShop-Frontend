@@ -1,0 +1,57 @@
+<div class="product-list">
+  <div class="filter-panel">
+    <div class="price-range">
+      <input type="number" placeholder="Min price" [(ngModel)]="filter.minPrice" />
+      <span> - </span>
+      <input type="number" placeholder="Max price" [(ngModel)]="filter.maxPrice" />
+    </div>
+
+    <select [(ngModel)]="filter.unit" (change)="loadProducts()">
+      <option value="">All Units</option>
+      <option value="kg">kg</option>
+      <option value="liter">liter</option>
+      <option value="pack">pack</option>
+      <option value="block">block</option>
+      <option value="loaf">loaf</option>
+      <option value="dozen">dozen</option>
+      <option value="cup">cup</option>
+      <option value="box">box</option>
+    </select>
+
+
+    <select [(ngModel)]="filter.sortBy" (change)="loadProducts()">
+      <option value="" selected>Sort by</option>
+      <option value="price">Price: Low → High</option>
+      <option value="-price">Price: High → Low</option>
+      <option value="name">Name: A → Z</option>
+      <option value="-name">Name: Z → A</option>
+    </select>
+
+    <button (click)="loadProducts()">Apply</button>
+    <button (click)="resetFilters()">Reset</button>
+  </div>
+
+  <div class="grid">
+    @for (product of products; track $index) {
+      <div class="card">
+        <img src="{{ product.imageUrl }}" alt="{{ product.name }}" />
+        <div class="card-body">
+          <h2>{{ product.name }}</h2>
+          <p>Unit: {{ product.unit }}</p>
+          <p class="price">{{ product.price | currency:'USD' }}</p>
+          <div class="actions">
+            <button routerLink="/products/{{product.id}}" class="info-btn">More Info</button>
+            <button (click)="cartService.addToCart(product)" class="cart-btn">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <mat-paginator
+    [length]="filter.pagination.totalItems"
+    [pageSize]="filter.pagination.pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onPageChange($event)">
+  </mat-paginator>
+</div>

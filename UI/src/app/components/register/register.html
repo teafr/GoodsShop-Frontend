@@ -1,0 +1,74 @@
+<div class="register-container">
+  <h2>Create Account</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-grid">
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input id="lastName" type="text" formControlName="lastName" />
+        @if (form.get('lastName')?.invalid && form.get('lastName')?.touched) {        
+          <small>Last name is required</small>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input id="firstName" type="text" formControlName="firstName" />
+        @if (form.get('firstName')?.invalid && form.get('firstName')?.touched) {        
+          <small>First name is required</small>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="patronymic">Patronymic</label>
+        <input id="patronymic" type="text" formControlName="patronymic" />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" />
+        @if (form.get('email')?.invalid && form.get('email')?.touched) {        
+          <small>Please enter a valid email</small>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input id="phone" type="tel" formControlName="phone" />
+        @if (form.get('phone')?.invalid && form.get('phone')?.touched) {
+          <small>Please enter a valid phone number</small>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input id="address" type="text" formControlName="address" />
+        @if (form.get('address')?.invalid && form.get('address')?.touched) {        
+          <small>Address is required</small>
+        }
+      </div>
+
+      <div class="form-group full-width">
+        <label for="password">Password</label>
+        <input id="password" type="password" formControlName="password" />
+        @if (form.get('password')?.errors?.['minlength'] && form.get('password')?.touched) {        
+          <small>Password must be at least 6 characters</small>
+        }
+      </div>
+
+      <div class="form-group full-width">
+        <label for="confirmationPassword">Confirm Password</label>
+        <input id="confirmationPassword" type="password" formControlName="confirmationPassword" />
+        @if (form.errors?.['passwordsMismatch'] && form.get('confirmationPassword')?.touched) {        
+          <small>Passwords do not match</small>
+        }
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="form.invalid">Register</button>
+  </form>
+  
+  <div class="extra-links">
+    <a routerLink="/login">Have an account? Login</a>
+  </div>
+</div>

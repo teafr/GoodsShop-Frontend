@@ -1,0 +1,28 @@
+<div class="profile-edit">
+    <h2>Profile</h2>
+
+    <form [formGroup]="profileForm" (ngSubmit)="save()">
+        <label>Last Name</label>
+        <input formControlName="lastName" />
+
+        <label>First Name</label>
+        <input formControlName="firstName" />
+
+        <label>Patronymic</label>
+        <input formControlName="patronymic" />
+
+        <label>Email</label>
+        <input formControlName="email" type="email" />
+
+        <label>Phone</label>
+        <input formControlName="phone" />
+
+        <label>Address</label>
+        <input formControlName="address" />
+
+        <div class="actions">
+            <button type="submit" [disabled]="profileForm.invalid">Save</button>
+            <button type="button" (click)="back()">Back</button>
+        </div>
+    </form>
+</div>

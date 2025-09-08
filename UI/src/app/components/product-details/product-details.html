@@ -1,0 +1,17 @@
+@if (product) {
+  <div class="product-card">
+    <img [src]="product.imageUrl" [alt]="product.name" class="product-img" />
+
+    <div class="product-info">
+      <h2 class="product-name">{{ product.name }}</h2>
+      <p class="product-price">{{ product.price | currency }}</p>
+      <p class="product-unit">Unit: {{ product.unit }}</p>
+    </div>
+    
+    <div class="actions">
+      <button (click)="cartService.addToCart(product)" class="cart-btn">Add to Cart</button>
+    </div>
+  </div>
+} @else {
+  <p class="loading">Loading product details...</p>
+}

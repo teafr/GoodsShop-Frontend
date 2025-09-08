@@ -1,0 +1,30 @@
+<div class="checkout">
+  <h2>Checkout</h2>
+
+  <div class="cart-summary">
+    <h3>Your Cart</h3>
+    @for (item of cartItems; track $index) {
+      <div class="cart-item">
+        <span>{{ item.product.name }} ({{ item.quantity }} × {{ item.product.unit }})</span>
+        <span class="price">
+          ${{ item.product.price * item.quantity | number: '1.2-2' }}
+        </span>
+      </div>
+    }
+
+    <div class="cart-total">
+      <strong>Total:</strong> ${{ totalPrice | number: '1.2-2' }}
+    </div>
+    <div class="cart-total">
+      @if (discount > 0) {
+        <strong>Total with discount:</strong> ${{ totalPrice * (1 - discount) | number: '1.2-2' }}
+      }
+    </div>
+  </div>
+
+  <div class="checkout-actions">
+    <button class="confirm-btn" (click)="makePurchase()">
+      Confirm Purchase
+    </button>
+  </div>
+</div>

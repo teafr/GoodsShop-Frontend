@@ -1,0 +1,42 @@
+@if (user) {
+    <div class="profile-container">
+      <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+    
+      <div class="user-info">
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Phone:</strong> {{ user.phone }}</p>
+        <p><strong>Address:</strong> {{ user.address }}</p>
+        <p><strong>Status:</strong> {{ user.isLoyal ? "loyal" : "not loyal" }}</p>
+      </div>
+    
+      <div class="actions">
+        <button class="checkout" (click)="edit()">Edit</button>
+      </div>
+    
+      <div class="sales-history">
+        <h3>Sales History</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Sum</th>
+              <th>Quantity</th>
+              <th>Purchase Date</th>
+              <th>Delivery Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (sale of salesHistory; track $index) {
+                <tr>
+                  <td>{{ sale.product.name }}</td>
+                  <td>{{( sale.product.price * sale.quantity * (1 - sale.discount)) | currency }}</td>
+                  <td>{{ sale.quantity }}</td>
+                  <td>{{ sale.purchaseDate | date: 'mediumDate' }}</td>
+                  <td>{{ sale.deliveryDate ? (sale.deliveryDate | date: 'mediumDate') : "Hasn't delivered yet" }}</td>
+                </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+}
