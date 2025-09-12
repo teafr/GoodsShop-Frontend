@@ -10,7 +10,6 @@ Frontend for the GoodsStore application — an Angular single-page app that talk
 * [Prerequisites](#prerequisites)
 * [Quick start](#quick-start)
 * [Environment & runtime config](#environment--runtime-config)
-* [Proxy to backend (dev)](#proxy-to-backend-dev)
 * [Main components & services summary](#main-components--services-summary)
 * [Authentication + tokens notes](#authentication--tokens-notes)
 * [Cart persistence & signals](#cart-persistence--signals)
@@ -45,7 +44,7 @@ This Angular app is the client for the GoodsStore e‑commerce backend. It provi
 * Node.js 18+ (or current LTS)
 * npm or yarn
 * Angular CLI (optional but useful): `npm i -g @angular/cli`
-* Backend running locally (or a working API URL in `environment`)
+* Backend running locally (API URL in `environment`)
 
 ## Quick start
 
