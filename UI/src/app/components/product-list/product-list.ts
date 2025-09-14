@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
@@ -8,6 +8,7 @@ import { CartService } from '../../services/cart.service';
 import { CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+type VoidFunction = () => void;
 @Component({
   selector: 'app-product-list',
   imports: [MatPaginatorModule, RouterModule, CurrencyPipe, FormsModule],
@@ -17,7 +18,8 @@ import { FormsModule } from '@angular/forms';
 export class ProductList {
   pageSizeOptions: number[] = [8, 16, 24, 32];
   products: Product[] | undefined;
-  minPrice = 4;
+  units: string[] | undefined;
+
   filter: ProductFilter = {
     sortBy: '',
     unit: '',
@@ -29,17 +31,17 @@ export class ProductList {
   };
 
   constructor(private productService: ProductService, public cartService: CartService, private route: ActivatedRoute) { 
-    this.loadProducts()
+    this.loadProducts(() => this.units = this.products ? Array.from(new Set(this.products.map(p => p.unit))) : []);
   }
   
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.filter.name = params['name'] || '';
+      this.filter.name = params['name'];
       this.loadProducts();
     });
   }
 
-  loadProducts() {
+  loadProducts(callBack: VoidFunction = () => {}) {
     let query = `?`;
     if (this.filter.name) query += `&name=${this.filter.name}`;
     if (this.filter.minPrice) query += `&minPrice=${this.filter.minPrice}`;
@@ -52,7 +54,9 @@ export class ProductList {
       const end = start + this.filter.pagination.pageSize;
       this.products = items.slice(start, end + 1 > this.filter.pagination.totalItems ? undefined : end);
       this.filter.pagination.totalItems = items.length;
-    });
+
+      callBack();
+    });    
   }
     
   onPageChange(event: PageEvent) {

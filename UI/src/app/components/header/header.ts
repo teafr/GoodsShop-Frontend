@@ -16,7 +16,12 @@ export class Header {
   constructor(public authService: AuthService, private router: Router) { }
 
   onSearch() {
-    this.router.navigate(['/products'], { queryParams: { name: this.searchTerm } });
+    if (this.searchTerm == '' || !this.searchTerm) {
+      this.router.navigateByUrl('/products');
+    }
+    else {
+      this.router.navigate(['/products'], { queryParams: { name: this.searchTerm } });
+    }
   }
 
 
