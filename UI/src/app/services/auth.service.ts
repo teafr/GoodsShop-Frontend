@@ -11,58 +11,56 @@ export class AuthService {
 
     constructor(private http: HttpClient) {}
 
-    getUser() {
+    getUser(): Observable<User> {
         return this.http.get<User>(this.baseUrl);
     }
 
-    register(user: User, password: string) {
-        return this.http.post<string>(`${this.baseUrl}/register`, { 
-            ...user, 
-            password 
-            }, { withCredentials: true }).pipe(tap(token => {
-                localStorage.setItem(this.key, token);
-            })
+    register(user: User, password: string): Observable<string> {
+        return this.http.post<string>(`${this.baseUrl}/register`, { ...user, password }, { withCredentials: true }).pipe(
+            tap(token => this.setAccessToken(token))
         );
     }
 
-    updateUser(user: User) {
-        return this.http.put(this.baseUrl, user);
-    }
-
-    markUserAsLoyal(id: string) {
-        return this.http.put(`${this.baseUrl}/mark/${id}`, {}).subscribe();
-    }
-
-    login(email: string, password: string) {
+    login(email: string, password: string): Observable<string> {
         return this.http.post<string>(`${this.baseUrl}/login`, { email, password }, { withCredentials: true }).pipe(
-            tap(token => {
-                localStorage.setItem(this.key, token);
-            })
+            tap(token => this.setAccessToken(token))
         );
+    }
+
+    updateUser(user: User): Observable<User> {
+        return this.http.put<User>(this.baseUrl, user);
+    }
+
+    markUserAsLoyal(id: string): void {
+        this.http.put(`${this.baseUrl}/mark/${id}`, {}).subscribe({
+            next: () => console.log("User is marked as loyal"),
+            error: err => console.error("User wasn't marked as loyal", err)
+        });
     }
 
     logout(): void {
         localStorage.removeItem(this.key);
-        this.http.post(`${this.baseUrl}/logout`, {}, { withCredentials: true }).subscribe({
+        this.http.delete(`${this.baseUrl}/logout`, { withCredentials: true }).subscribe({
             next: () => console.log("User logged out, refresh token removed"),
             error: err => console.error("Logout failed", err)
         });
     }
 
+    refreshTokens(): Observable<string> {
+        return this.http.post<string>(`${this.baseUrl}/refresh`, {}, { withCredentials: true }).pipe(
+            tap(token => this.setAccessToken(token))
+        );
+    }
+
     isAuthenticated(): boolean {
-        const token = localStorage.getItem(this.key);
-        return token !== null && token !== undefined;
+        return this.getAccessToken() != null;
     }
 
     getAccessToken(): string | null {
         return localStorage.getItem(this.key);
     }
 
-    refreshTokens(): Observable<string> {
-        return this.http.post<string>(`${this.baseUrl}/refresh`, {}, { withCredentials: true }).pipe(
-            tap(token => {
-                localStorage.setItem(this.key, token);
-            })
-        );
+    setAccessToken(token: string): void {
+        localStorage.setItem(this.key, token)
     }
 }

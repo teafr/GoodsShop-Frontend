@@ -16,9 +16,7 @@
                     <span>{{ item.quantity }}</span>
                     <button (click)="increase(item)">+</button>
                 </div>
-                <div class="total">
-                    {{ item.product.price * item.quantity | currency:'USD' }}
-                </div>
+                <div class="total">{{ item.product.price * item.quantity | currency:'USD' }}</div>
                 <button class="remove" (click)="remove(item.product.id)">✖</button>
             </li>
         }
@@ -26,7 +24,7 @@
 
     <div class="summary">
         <p>Total: <strong>{{ total() | currency:'USD' }}</strong></p>
-        <button class="checkout" (click)="checkout()">Checkout</button>
+        <a routerLink="/checkout">Checkout</a>
     </div>
   }
 </div>

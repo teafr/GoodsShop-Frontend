@@ -10,11 +10,11 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  getProducts(query: string) : Observable<Product[]> {
+  getProducts(query: string = ""): Observable<Product[]> {
     return this.http.get<Product[]>(this.baseUrl + query);
   }
 
-  getProductById(id: string) {
+  getProductById(id: string): Observable<Product> {
     return this.http.get<Product>(`${this.baseUrl}/${id}`);
   }
 }

@@ -1,22 +1,20 @@
 import { Component, computed, signal } from '@angular/core';
 import { CartService } from '../../services/cart.service';
-import { CartItem } from '../../models/cart.model';
+import { CartItem } from '../../models/cart-item.model';
 import { CurrencyPipe } from '@angular/common';
-import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, RouterModule],
   templateUrl: './cart.html',
   styleUrls: ['./cart.scss']
 })
 export class Cart {
   items = signal<CartItem[]>([]);
-  total = computed(() =>
-    this.items().reduce((sum, i) => sum + i.product.price * i.quantity, 0)
-  );
+  total = computed(() => this.items().reduce((sum, item) => sum + item.product.price * item.quantity, 0));
 
-  constructor(private cartService: CartService, private router: Router) {
+  constructor(private cartService: CartService) {
     this.items = this.cartService.cartItemsSig;
   }
 
@@ -30,9 +28,5 @@ export class Cart {
 
   remove(productId: string) {
     this.cartService.removeFromCart(productId);
-  }
-
-  checkout() {
-    this.router.navigateByUrl('/checkout')
   }
 }

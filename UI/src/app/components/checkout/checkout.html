@@ -23,8 +23,6 @@
   </div>
 
   <div class="checkout-actions">
-    <button class="confirm-btn" (click)="makePurchase()">
-      Confirm Purchase
-    </button>
+    <button class="confirm-btn" [disabled]="cartItems.length === 0" (click)="makePurchase()">Confirm Purchase</button>
   </div>
 </div>

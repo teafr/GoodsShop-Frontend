@@ -5,7 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { SaleService } from '../../services/sale.service';
 import { CartService } from '../../services/cart.service';
 import { AuthService } from '../../services/auth.service';
-import { CartItem } from '../../models/cart.model';
+import { CartItem } from '../../models/cart-item.model';
 import { Sale } from '../../models/sale.model';
 import { environment } from '../../../environment/environment';
 
