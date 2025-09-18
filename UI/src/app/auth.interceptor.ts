@@ -30,9 +30,7 @@ export const authInterceptor : HttpInterceptorFn = (request, next) => {
       return throwError(() => error);
     }
 
-    if (error.status !== 401 && error.status !== 403) {
-      return throwError(() => error);
-    }
+    if (error.status !== 401 && error.status !== 403) return throwError(() => error);
 
     if (!isRefreshing) {
       isRefreshing = true;
@@ -40,7 +38,6 @@ export const authInterceptor : HttpInterceptorFn = (request, next) => {
       return authService.refreshTokens().pipe(
         switchMap((newToken) => {
           refreshedToken$.next(newToken);
-
           return next(req.clone({ setHeaders: { Authorization: `Bearer ${newToken}` }, withCredentials: true, }));
         }),
         catchError((refreshErr) => {
@@ -48,20 +45,12 @@ export const authInterceptor : HttpInterceptorFn = (request, next) => {
           router.navigateByUrl('/login');
           return throwError(() => refreshErr);
         }),
-        finalize(() => {
-          isRefreshing = false;
-        })
+        finalize(() => isRefreshing = false)
       );
     }
     
-    return refreshedToken$.pipe(
-      take(1),
-      filter((token) => !!token),
-      switchMap((t) => {
-        return next(req.clone({
-          setHeaders: { Authorization: `Bearer ${t}` }, withCredentials: true,
-        }));
-      })
-    );
+    return refreshedToken$.pipe(take(1), filter((token) => !!token), switchMap((t) => {
+      return next(req.clone({ setHeaders: { Authorization: `Bearer ${t}` }, withCredentials: true }));
+    }));
   }));
 };

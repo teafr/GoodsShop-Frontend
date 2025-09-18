@@ -7,5 +7,6 @@ export function passwordsMatchValidator(control: AbstractControl): ValidationErr
   if (password && confirmPassword && password !== confirmPassword) {
     return { passwordsMismatch: true };
   }
+  
   return null;
 }
