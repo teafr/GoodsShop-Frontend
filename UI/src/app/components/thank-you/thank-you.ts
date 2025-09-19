@@ -1,16 +1,10 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-thank-you',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './thank-you.html',
   styleUrl: './thank-you.scss'
 })
-export class ThankYou {
-  constructor(private router: Router) {}
-
-  returnToProducts(): void {
-    this.router.navigateByUrl('/products');
-  }
-}
+export class ThankYou {}

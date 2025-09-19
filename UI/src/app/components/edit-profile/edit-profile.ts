@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../../models/user.model';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './edit-profile.html',
   styleUrl: './edit-profile.scss'
 })
-export class EditProfile {
+export class EditProfile implements OnInit{
   @Input() user!: User;
   profileForm: FormGroup;
 

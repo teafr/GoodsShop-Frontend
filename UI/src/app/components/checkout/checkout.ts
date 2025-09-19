@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { SaleService } from '../../services/sale.service';
@@ -15,7 +15,7 @@ import { environment } from '../../../environment/environment';
   templateUrl: './checkout.html',
   styleUrls: ['./checkout.scss']
 })
-export class Checkout {
+export class Checkout implements OnInit {
   cartItems: CartItem[];
   totalPrice: number;
   discount: number = 0;

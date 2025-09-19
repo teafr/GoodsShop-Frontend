@@ -1,4 +1,4 @@
-import { Component, computed } from '@angular/core';
+import { Component, computed, OnInit } from '@angular/core';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
@@ -9,17 +9,17 @@ import { CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 type VoidFunction = () => void;
+
 @Component({
   selector: 'app-product-list',
   imports: [MatPaginatorModule, RouterModule, CurrencyPipe, FormsModule],
   templateUrl: './product-list.html',
   styleUrl: './product-list.scss'
 })
-export class ProductList {
+export class ProductList implements OnInit {
   pageSizeOptions: number[] = [8, 16, 24, 32];
   products: Product[] | undefined;
   units: string[] | undefined;
-
   filter: ProductFilter = {
     sortBy: '',
     unit: '',

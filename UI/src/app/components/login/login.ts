@@ -11,11 +11,9 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class Login {
   form: FormGroup;
+  
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
-    this.form = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
+    this.form = this.formBuilder.group({ username: ['', Validators.required], password: ['', Validators.required] });
   }
 
   onSubmit() {
