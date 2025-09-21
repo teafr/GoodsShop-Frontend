@@ -1,0 +1,36 @@
+h2 {
+    text-align: center;
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+
+    button {
+        flex: 1;
+        padding: 0.5rem;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: background 0.2s ease;
+    }
+
+    .close-btn {
+        background: #f0f0f0;
+        color: #333;
+    
+        &:hover {
+            background: #ddd;
+        }
+    }
+
+    .add-btn {
+        background: var(--primary);
+        color: #fff;
+
+        &:hover {
+            background: var(--primary-hover);
+        }
+    }
+}
