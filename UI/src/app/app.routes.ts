@@ -8,39 +8,51 @@ import { Login } from './components/login/login';
 import { Register } from './components/register/register';
 import { ThankYou } from './components/thank-you/thank-you';
 import { EditProfile } from './components/edit-profile/edit-profile';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
-    {
-        path: '',
-        redirectTo: 'products',
-        pathMatch: 'full'
-    }, {
-        path: 'products',
-        component: ProductList
-    }, {
-
-        path: 'products/:id',
-        component: ProductDetails
-    }, {
-        path: 'cart',
-        component: Cart
-    }, {
-        path: 'checkout',
-        component: Checkout
-    }, {
-        path: 'profile',
-        component: Profile
-    }, {
-        path: 'login',
-        component: Login
-    }, {
-        path: 'register',
-        component: Register
-    }, {
-        path: 'thank-you',
-        component: ThankYou
-    }, {
-        path: 'edit-profile',
-        component: EditProfile
-    }
+  {
+    path: '',
+    redirectTo: 'products',
+    pathMatch: 'full',
+  },
+  {
+    path: 'products',
+    component: ProductList,
+  },
+  {
+    path: 'products/:id',
+    component: ProductDetails,
+  },
+  {
+    path: 'cart',
+    component: Cart,
+  },
+  {
+    path: 'checkout',
+    component: Checkout,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'profile',
+    component: Profile,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'login',
+    component: Login,
+  },
+  {
+    path: 'register',
+    component: Register,
+  },
+  {
+    path: 'thank-you',
+    component: ThankYou,
+  },
+  {
+    path: 'edit-profile',
+    component: EditProfile,
+    canActivate: [authGuard],
+  },
 ];
