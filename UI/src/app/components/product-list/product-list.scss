@@ -79,9 +79,6 @@
                 .cart-btn {
                     background: var(--primary);
                     color: #fff;
-                    border: none;
-                    cursor: pointer;
-                    transition: background 0.2s;
                 
                     &:hover {
                         background: var(--primary-hover); 

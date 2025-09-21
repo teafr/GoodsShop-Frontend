@@ -9,19 +9,21 @@ import { CartService } from '../../services/cart.service';
   selector: 'app-product-details',
   imports: [CurrencyPipe],
   templateUrl: './product-details.html',
-  styleUrls: ['./product-details.scss']
+  styleUrls: ['./product-details.scss'],
 })
 export class ProductDetails implements OnInit {
   public product: Product | undefined;
 
-  constructor(private route: ActivatedRoute, private productService: ProductService, public cartService: CartService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductService,
+    public cartService: CartService,
+  ) {}
 
   ngOnInit() {
     const productId = this.route.snapshot.paramMap.get('id');
     if (productId) {
-      this.productService.getProductById(productId).subscribe(data => {
-        this.product = data;
-      });
+      this.productService.getProductById(productId).subscribe((data) => this.product = data);
     }
   }
 }

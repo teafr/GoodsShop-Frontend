@@ -36,7 +36,7 @@
           <p class="price">{{ product.price | currency:'USD' }}</p>
           <div class="actions">
             <button routerLink="/products/{{product.id}}" class="info-btn">More Info</button>
-            <button (click)="cartService.addToCart(product)" class="cart-btn">Add to Cart</button>
+            <button class="cart-btn" mat-raised-button color="primary" (click)="cartService.displayDialog(product)">Add to Cart</button>
           </div>
         </div>
       </div>

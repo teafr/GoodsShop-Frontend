@@ -26,6 +26,6 @@ export class Header {
 
   logout() {
     this.authService.logout();
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/products');
   }
 }
